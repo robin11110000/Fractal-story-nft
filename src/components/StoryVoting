@@ -1,0 +1,40 @@
+import React, { useState } from 'react';
+
+const StoryVoting = () => {
+  const [votes, setVotes] = useState({ option1: 0, option2: 0 });
+  const [hasVoted, setHasVoted] = useState(false);
+
+  const handleVote = (option) => {
+    if (!hasVoted) {
+      setVotes(prev => ({
+        ...prev,
+        [option]: prev[option] + 1
+      }));
+      setHasVoted(true);
+    }
+  };
+
+  return (
+    <div className="bg-gray-700 p-4 rounded-lg mt-4">
+      <h3 className="text-white text-xl mb-4">What happens next?</h3>
+      <div className="flex gap-4">
+        <button
+          onClick={() => handleVote('option1')}
+          disabled={hasVoted}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          The hero wins ({votes.option1} votes)
+        </button>
+        <button
+          onClick={() => handleVote('option2')}
+          disabled={hasVoted}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Plot twist! ({votes.option2} votes)
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default StoryVoting;
